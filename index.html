@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#150726" />
+    <title>Neon Beat Runner</title>
+  </head>
+  <body>
+    <main id="app">
+      <canvas id="game-canvas" aria-label="Neon Beat Runner game canvas"></canvas>
+
+      <section id="hud" aria-live="polite">
+        <div id="hud-left">
+          <div class="hud-label" data-i18n="score">SCORE</div>
+          <div id="score-value">0</div>
+          <div id="mult-chip">×1</div>
+        </div>
+        <div id="hud-combo" class="hidden">
+          <span id="combo-value">0</span>
+          <span class="combo-word" data-i18n="comboWord">COMBO</span>
+        </div>
+        <div id="hud-right">
+          <button id="mute-button" type="button" data-ui data-i18n-aria="muteAria" aria-label="Toggle sound">♪</button>
+          <div class="hud-stat"><span class="hud-label" data-i18n="best">BEST</span><span id="best-value">0</span></div>
+          <div class="hud-stat"><span class="hud-label" data-i18n="dist">DIST</span><span id="dist-value">0m</span></div>
+          <div class="hud-stat"><span class="hud-label" data-i18n="bpm">BPM</span><span id="bpm-value">120</span></div>
+        </div>
+      </section>
+
+      <div id="overlay-title" class="overlay">
+        <h1>NEON BEAT<br />RUNNER</h1>
+        <p class="subtitle" data-i18n="subtitle"></p>
+        <p class="prompt blink" data-i18n="promptStart"></p>
+        <ul class="howto">
+          <li data-i18n-html="howtoKeys"></li>
+          <li data-i18n-html="howtoTouch"></li>
+          <li data-i18n-html="howtoGoal"></li>
+          <li data-i18n="howtoCombo"></li>
+        </ul>
+        <div class="lang-row" role="group" aria-label="Language">
+          <button type="button" data-ui data-lang="zh">中文</button>
+          <button type="button" data-ui data-lang="en">EN</button>
+        </div>
+      </div>
+
+      <div id="overlay-dead" class="overlay hidden">
+        <h2 data-i18n="runEnded"></h2>
+        <p id="dead-newbest" class="newbest hidden" data-i18n="newBest"></p>
+        <div class="dead-stats">
+          <div><span class="hud-label" data-i18n="score"></span><span id="dead-score">0</span></div>
+          <div><span class="hud-label" data-i18n="dist"></span><span id="dead-dist">0m</span></div>
+          <div><span class="hud-label" data-i18n="maxCombo"></span><span id="dead-combo">0</span></div>
+          <div><span class="hud-label" data-i18n="best"></span><span id="dead-best">0</span></div>
+        </div>
+        <p class="prompt blink" data-i18n="promptRetry"></p>
+      </div>
+
+      <div id="overlay-paused" class="overlay hidden">
+        <h2 data-i18n="paused"></h2>
+        <p class="prompt" data-i18n="promptResume"></p>
+      </div>
+
+      <div id="hint-line" data-i18n="hintLine"></div>
+      <div id="flash"></div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
