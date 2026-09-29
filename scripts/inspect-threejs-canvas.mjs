@@ -19,7 +19,9 @@ function parseArgs(argv) {
     else if (value === '--mobile') args.mobile = true;
     else if (value === '--wait') args.wait = Number(argv[++i]);
     else if (value === '-h' || value === '--help') {
-      console.log('Usage: inspect-threejs-canvas.mjs [--url URL] [--out DIR] [--mobile] [--wait MS]');
+      console.log(
+        'Usage: inspect-threejs-canvas.mjs [--url URL] [--out DIR] [--mobile] [--wait MS]',
+      );
       process.exit(0);
     } else {
       throw new Error(`Unknown argument: ${value}`);
@@ -60,9 +62,7 @@ async function sampleCanvas(page) {
   const diagnostics = await page.evaluate(() => {
     const canvas = document.querySelector('canvas');
     return {
-      drawingBuffer: canvas
-        ? { width: canvas.width, height: canvas.height }
-        : null,
+      drawingBuffer: canvas ? { width: canvas.width, height: canvas.height } : null,
       game: window.__THREE_GAME_DIAGNOSTICS__ ?? null,
     };
   });
@@ -87,9 +87,11 @@ async function main() {
   const browser = await chromium.launch({
     args: ['--enable-unsafe-webgpu', '--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'],
   });
-  const context = await browser.newContext(args.mobile
-    ? { ...devices['iPhone 13'], userAgent: undefined }
-    : { viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 });
+  const context = await browser.newContext(
+    args.mobile
+      ? { ...devices['iPhone 13'], userAgent: undefined }
+      : { viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 },
+  );
   const page = await context.newPage();
   const consoleErrors = [];
   const pageErrors = [];
@@ -116,7 +118,10 @@ async function main() {
     pageErrors,
   };
 
-  await writeFile(path.join(args.out, args.mobile ? 'mobile.json' : 'desktop.json'), `${JSON.stringify(report, null, 2)}\n`);
+  await writeFile(
+    path.join(args.out, args.mobile ? 'mobile.json' : 'desktop.json'),
+    `${JSON.stringify(report, null, 2)}\n`,
+  );
   await browser.close();
 
   console.log(JSON.stringify(report, null, 2));

@@ -111,7 +111,14 @@ export class Spawner {
     this.random = mulberry32(seed);
   }
 
-  update(clock: BeatClock, speed: number, tier: number, deltaSeconds: number, playerX: number, playerY: number): void {
+  update(
+    clock: BeatClock,
+    speed: number,
+    tier: number,
+    deltaSeconds: number,
+    playerX: number,
+    playerY: number,
+  ): void {
     this.frameMisses.length = 0;
     this.frameBarPasses.length = 0;
 
@@ -169,7 +176,9 @@ export class Spawner {
       this.lastPatternName = pattern.name;
 
       for (const event of pattern.events) {
-        const y = event.y ?? (event.t === 'flyerLow' ? FLYER_LOW_Y : event.t === 'flyerHigh' ? FLYER_HIGH_Y : 0);
+        const y =
+          event.y ??
+          (event.t === 'flyerLow' ? FLYER_LOW_Y : event.t === 'flyerHigh' ? FLYER_HIGH_Y : 0);
         this.queue.push({ beat: this.nextPatternBeat + event.b, kind: event.t, y });
       }
       this.nextPatternBeat += pattern.lengthBeats + gapBeatsForTier(tier);

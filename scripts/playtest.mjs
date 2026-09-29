@@ -22,7 +22,9 @@ page.on('console', (m) => {
 });
 
 await page.goto('http://127.0.0.1:5188/', { waitUntil: 'domcontentloaded' });
-await page.waitForFunction(() => (window.__THREE_GAME_DIAGNOSTICS__?.frame ?? 0) > 30, undefined, { timeout: 30_000 });
+await page.waitForFunction(() => (window.__THREE_GAME_DIAGNOSTICS__?.frame ?? 0) > 30, undefined, {
+  timeout: 30_000,
+});
 
 // Warm up shader pipelines: run one throwaway second of play, then restart.
 await page.keyboard.press('Space');
@@ -67,18 +69,28 @@ await page.evaluate(() => {
       const timeAhead = (x) => x / d.speed;
       const isBar = d.nearest.obstacleKind === 'bar';
       const obstacleClose =
-        d.nearest.obstacleX !== null && timeAhead(d.nearest.obstacleX) < 0.34 && timeAhead(d.nearest.obstacleX) > 0.02;
-      const barClose = isBar && d.nearest.obstacleX !== null && timeAhead(d.nearest.obstacleX) < 0.45;
+        d.nearest.obstacleX !== null &&
+        timeAhead(d.nearest.obstacleX) < 0.34 &&
+        timeAhead(d.nearest.obstacleX) > 0.02;
+      const barClose =
+        isBar && d.nearest.obstacleX !== null && timeAhead(d.nearest.obstacleX) < 0.45;
       const tall = d.nearest.obstacleKind === 'wallTall';
-      const flyerClose = d.nearest.flyerX !== null && timeAhead(d.nearest.flyerX) < 0.42 && d.nearest.flyerY < 2.2;
-      const flyerHigh = d.nearest.flyerX !== null && timeAhead(d.nearest.flyerX) < 0.5 && d.nearest.flyerY >= 2.2;
+      const flyerClose =
+        d.nearest.flyerX !== null && timeAhead(d.nearest.flyerX) < 0.42 && d.nearest.flyerY < 2.2;
+      const flyerHigh =
+        d.nearest.flyerX !== null && timeAhead(d.nearest.flyerX) < 0.5 && d.nearest.flyerY >= 2.2;
       if (d.player.grounded && barClose) {
         slide(650);
         cooldown = 14;
       } else if (d.player.grounded && ((obstacleClose && !isBar) || flyerClose)) {
         press(tall ? 300 : 240);
         cooldown = 10;
-      } else if (!d.player.grounded && d.player.jumpsUsed < 2 && (tall || flyerHigh) && d.player.vy < 2) {
+      } else if (
+        !d.player.grounded &&
+        d.player.jumpsUsed < 2 &&
+        (tall || flyerHigh) &&
+        d.player.vy < 2
+      ) {
         press(200);
         cooldown = 12;
       }
@@ -97,7 +109,13 @@ while ((Date.now() - t0) / 1000 < seconds) {
   if (shotIndex < shots.length && elapsed >= shots[shotIndex]) {
     const state = await page.evaluate(() => {
       const d = window.__THREE_GAME_DIAGNOSTICS__;
-      return { phase: d.phase, distance: Math.round(d.distance), combo: d.combo, mult: d.multiplier, score: d.score };
+      return {
+        phase: d.phase,
+        distance: Math.round(d.distance),
+        combo: d.combo,
+        mult: d.multiplier,
+        score: d.score,
+      };
     });
     const file = `artifacts/playtest/run-${shots[shotIndex]}s.png`;
     await page.screenshot({ path: file });

@@ -44,7 +44,10 @@ export class CollisionSystem {
 
     for (const flyer of flyers) {
       if (!flyer.active || flyer.smashed || flyer.missed) continue;
-      if (!player.grounded && this.circleHitsPlayer(flyer.group.position.x, flyer.group.position.y, flyer.radius)) {
+      if (
+        !player.grounded &&
+        this.circleHitsPlayer(flyer.group.position.x, flyer.group.position.y, flyer.radius)
+      ) {
         result.smashed.push(flyer);
       }
     }
@@ -60,8 +63,14 @@ export class CollisionSystem {
   }
 
   private circleHitsPlayer(x: number, y: number, radius: number): boolean {
-    const nearestX = Math.max(playerBox.cx - playerBox.hw, Math.min(x, playerBox.cx + playerBox.hw));
-    const nearestY = Math.max(playerBox.cy - playerBox.hh, Math.min(y, playerBox.cy + playerBox.hh));
+    const nearestX = Math.max(
+      playerBox.cx - playerBox.hw,
+      Math.min(x, playerBox.cx + playerBox.hw),
+    );
+    const nearestY = Math.max(
+      playerBox.cy - playerBox.hh,
+      Math.min(y, playerBox.cy + playerBox.hh),
+    );
     const dx = x - nearestX;
     const dy = y - nearestY;
     return dx * dx + dy * dy <= radius * radius;

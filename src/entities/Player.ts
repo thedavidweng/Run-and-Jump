@@ -101,7 +101,13 @@ export class Player {
     out.hh = height / 2;
   }
 
-  update(deltaSeconds: number, pressed: boolean, held: boolean, downHeld: boolean, speed: number): void {
+  update(
+    deltaSeconds: number,
+    pressed: boolean,
+    held: boolean,
+    downHeld: boolean,
+    speed: number,
+  ): void {
     const t = this.tuning;
     const downEdge = downHeld && !this.wasDownHeld;
     this.wasDownHeld = downHeld;
@@ -153,7 +159,8 @@ export class Player {
       }
       // Variable jump height: releasing early clips upward velocity, but only
       // after a short grace so taps still produce a useful hop.
-      if (!held && this.sinceJump > MIN_RISE_SECONDS && this.vy > t.jumpCutoff) this.vy = t.jumpCutoff;
+      if (!held && this.sinceJump > MIN_RISE_SECONDS && this.vy > t.jumpCutoff)
+        this.vy = t.jumpCutoff;
       const apex = Math.abs(this.vy) < 1.6 ? APEX_GRAVITY_SCALE : 1;
       const fastFall = downHeld && this.vy < 0 ? FAST_FALL_GRAVITY_SCALE : 1;
       this.vy -= t.gravity * apex * fastFall * deltaSeconds;
@@ -278,7 +285,8 @@ export class Player {
       visual.position.y = 0;
     }
 
-    scarf.rotation.z = 0.5 + Math.sin(this.runPhase * 2.1) * 0.16 + THREE.MathUtils.clamp(this.vy * 0.03, -0.3, 0.3);
+    scarf.rotation.z =
+      0.5 + Math.sin(this.runPhase * 2.1) * 0.16 + THREE.MathUtils.clamp(this.vy * 0.03, -0.3, 0.3);
     this.updateShadow();
   }
 

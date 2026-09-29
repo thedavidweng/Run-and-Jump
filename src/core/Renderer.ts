@@ -103,6 +103,6 @@ export class GameRenderer {
 
   dispose(): void {
     this.post.dispose();
-    this.renderer.dispose();
+    void this.renderer.dispose();
   }
 }

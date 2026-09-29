@@ -51,7 +51,11 @@ export class CameraRig {
   update(deltaSeconds: number, playerY: number, speed: number): void {
     this.shakeTime += deltaSeconds;
     const targetY = BASE_Y + playerY * 0.24;
-    this.currentY = THREE.MathUtils.lerp(this.currentY, targetY, 1 - Math.exp(-deltaSeconds / 0.12));
+    this.currentY = THREE.MathUtils.lerp(
+      this.currentY,
+      targetY,
+      1 - Math.exp(-deltaSeconds / 0.12),
+    );
 
     this.trauma = Math.max(0, this.trauma - deltaSeconds * 1.35);
     this.punch = Math.max(0, this.punch - this.punch * 7 * deltaSeconds - deltaSeconds);

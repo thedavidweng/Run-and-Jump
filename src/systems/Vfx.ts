@@ -33,7 +33,10 @@ class ParticleField {
   private readonly cg: Float32Array;
   private readonly cb: Float32Array;
 
-  constructor(geometry: THREE.BufferGeometry, readonly capacity: number) {
+  constructor(
+    geometry: THREE.BufferGeometry,
+    readonly capacity: number,
+  ) {
     const material = new THREE.MeshBasicNodeMaterial();
     material.blending = THREE.AdditiveBlending;
     material.transparent = true;
@@ -128,7 +131,10 @@ class ParticleField {
         scratchScale.set(size * this.aspect[j], size, 1);
         scratchMatrix.compose(scratchPos, scratchQuat, scratchScale);
         this.mesh.setMatrixAt(j, scratchMatrix);
-        this.mesh.setColorAt(j, scratchColor.setRGB(this.cr[j] * fade, this.cg[j] * fade, this.cb[j] * fade));
+        this.mesh.setColorAt(
+          j,
+          scratchColor.setRGB(this.cr[j] * fade, this.cg[j] * fade, this.cb[j] * fade),
+        );
       } else {
         scratchScale.set(0, 0, 0);
         scratchMatrix.compose(scratchPos.set(0, -20, 0), scratchQuat, scratchScale);
@@ -176,7 +182,11 @@ const COLOR_TRAIL_B = new THREE.Color('#ff2e97');
 const COLOR_MISS = new THREE.Color('#5a4a7a');
 const COLOR_DEATH = new THREE.Color('#ff4c6a');
 const COLOR_STREAK = new THREE.Color('#9fb4ff');
-const COLOR_CONFETTI = [new THREE.Color('#ff2e97'), new THREE.Color('#00e5ff'), new THREE.Color('#ffd23e')];
+const COLOR_CONFETTI = [
+  new THREE.Color('#ff2e97'),
+  new THREE.Color('#00e5ff'),
+  new THREE.Color('#ffd23e'),
+];
 const COLOR_GOLD = new THREE.Color('#ffd23e');
 
 export class Vfx {
@@ -212,7 +222,20 @@ export class Vfx {
   jumpPuff(x: number, y: number): void {
     for (let i = 0; i < 5; i += 1) {
       const angle = Math.PI * (0.9 + Math.random() * 1.2);
-      this.quads.spawn(x, y + 0.05, 0.3, Math.cos(angle) * 2, 0.6 + Math.random(), 0, 0.32, 0.9, 0.1, COLOR_DUST, 2, 2);
+      this.quads.spawn(
+        x,
+        y + 0.05,
+        0.3,
+        Math.cos(angle) * 2,
+        0.6 + Math.random(),
+        0,
+        0.32,
+        0.9,
+        0.1,
+        COLOR_DUST,
+        2,
+        2,
+      );
     }
   }
 
@@ -264,7 +287,20 @@ export class Vfx {
     for (let i = 0; i < 7; i += 1) {
       const angle = Math.random() * Math.PI * 2;
       const speed = 1.4 + Math.random() * 1.8;
-      this.quads.spawn(x, y, 0.4, Math.cos(angle) * speed, Math.sin(angle) * speed + 1, 0, 0.34, 0.7, 0.04, COLOR_NOTE, 2.5, 3);
+      this.quads.spawn(
+        x,
+        y,
+        0.4,
+        Math.cos(angle) * speed,
+        Math.sin(angle) * speed + 1,
+        0,
+        0.34,
+        0.7,
+        0.04,
+        COLOR_NOTE,
+        2.5,
+        3,
+      );
     }
     this.rings.spawn(x, y, 0.42, 0, 0, 0, 0.26, 0.3, 2.2, COLOR_NOTE);
   }
@@ -274,14 +310,40 @@ export class Vfx {
     for (let i = 0; i < 6; i += 1) {
       const angle = Math.random() * Math.PI;
       const speed = 1.6 + Math.random() * 2;
-      this.quads.spawn(x, y + 0.3, 0.4, Math.cos(angle) * speed, Math.sin(angle) * speed + 0.8, 0, 0.36, 0.7, 0.05, COLOR_GOLD, 2.5, 3);
+      this.quads.spawn(
+        x,
+        y + 0.3,
+        0.4,
+        Math.cos(angle) * speed,
+        Math.sin(angle) * speed + 0.8,
+        0,
+        0.36,
+        0.7,
+        0.05,
+        COLOR_GOLD,
+        2.5,
+        3,
+      );
     }
     this.rings.spawn(x, y + 0.3, 0.42, 0, 0, 0, 0.28, 0.3, 2.6, COLOR_GOLD);
   }
 
   missPuff(x: number, y: number): void {
     for (let i = 0; i < 5; i += 1) {
-      this.quads.spawn(x, y, 0.35, -1 - Math.random(), (Math.random() - 0.3) * 1.4, 0, 0.4, 0.8, 0.15, COLOR_MISS, 1, 2);
+      this.quads.spawn(
+        x,
+        y,
+        0.35,
+        -1 - Math.random(),
+        (Math.random() - 0.3) * 1.4,
+        0,
+        0.4,
+        0.8,
+        0.15,
+        COLOR_MISS,
+        1,
+        2,
+      );
     }
   }
 
@@ -322,7 +384,21 @@ export class Vfx {
     if (this.trailTimer <= 0 && (airborne || speed > 9 || fever)) {
       this.trailTimer = 0.03;
       const color = Math.random() > 0.5 ? COLOR_TRAIL_A : COLOR_TRAIL_B;
-      this.quads.spawn(playerX - 0.25, playerY + 0.55 + (Math.random() - 0.5) * 0.5, -0.15, -speed * 0.45, vy * 0.2, 0, 0.3, 0.55, 0.02, color, 0, 4, 2.6);
+      this.quads.spawn(
+        playerX - 0.25,
+        playerY + 0.55 + (Math.random() - 0.5) * 0.5,
+        -0.15,
+        -speed * 0.45,
+        vy * 0.2,
+        0,
+        0.3,
+        0.55,
+        0.02,
+        color,
+        0,
+        4,
+        2.6,
+      );
     }
 
     this.slideTimer -= deltaSeconds;

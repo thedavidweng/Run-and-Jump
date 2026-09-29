@@ -7,7 +7,15 @@ import { PALETTE } from './palette';
  * material cleanup is handled centrally by disposing the scene graph.
  */
 
-function standard(colorHex: string, options: { emissive?: string; emissiveIntensity?: number; roughness?: number; metalness?: number } = {}): THREE.MeshStandardNodeMaterial {
+function standard(
+  colorHex: string,
+  options: {
+    emissive?: string;
+    emissiveIntensity?: number;
+    roughness?: number;
+    metalness?: number;
+  } = {},
+): THREE.MeshStandardNodeMaterial {
   const material = new THREE.MeshStandardNodeMaterial();
   material.color = new THREE.Color(colorHex);
   material.roughness = options.roughness ?? 0.55;
@@ -19,7 +27,10 @@ function standard(colorHex: string, options: { emissive?: string; emissiveIntens
   return material;
 }
 
-function unlit(colorHex: string, options: { fog?: boolean; transparent?: boolean; opacity?: number } = {}): THREE.MeshBasicNodeMaterial {
+function unlit(
+  colorHex: string,
+  options: { fog?: boolean; transparent?: boolean; opacity?: number } = {},
+): THREE.MeshBasicNodeMaterial {
   const material = new THREE.MeshBasicNodeMaterial();
   material.color = new THREE.Color(colorHex);
   material.fog = options.fog ?? true;
@@ -148,7 +159,11 @@ export function buildSpike(): THREE.Group {
 export function buildWall(tall: boolean): THREE.Group {
   const group = new THREE.Group();
   const height = tall ? 2.6 : 1.4;
-  const bodyMat = standard(PALETTE.wall, { roughness: 0.5, emissive: PALETTE.wall, emissiveIntensity: 0.18 });
+  const bodyMat = standard(PALETTE.wall, {
+    roughness: 0.5,
+    emissive: PALETTE.wall,
+    emissiveIntensity: 0.18,
+  });
   const body = new THREE.Mesh(new THREE.BoxGeometry(0.62, height, 1.6), bodyMat);
   body.position.y = height / 2;
   group.add(body);
@@ -237,10 +252,7 @@ export function buildFlyer(): FlyerParts {
     core.add(spike);
   }
 
-  const eye = new THREE.Mesh(
-    new THREE.SphereGeometry(0.11, 12, 10),
-    unlit(PALETTE.flyerEye),
-  );
+  const eye = new THREE.Mesh(new THREE.SphereGeometry(0.11, 12, 10), unlit(PALETTE.flyerEye));
   eye.position.set(0, 0, 0.3);
   group.add(eye);
   return { group, core };
@@ -351,7 +363,10 @@ export function buildTower(width: number, height: number): THREE.Group {
   group.add(body);
   const cap = new THREE.Mesh(
     new THREE.BoxGeometry(width * 0.85, 0.1, 1.24),
-    unlit(Math.random() > 0.5 ? PALETTE.edgeCyan : PALETTE.edgePink, { transparent: true, opacity: 0.8 }),
+    unlit(Math.random() > 0.5 ? PALETTE.edgeCyan : PALETTE.edgePink, {
+      transparent: true,
+      opacity: 0.8,
+    }),
   );
   cap.position.y = height + 0.05;
   group.add(cap);
