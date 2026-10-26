@@ -1,8 +1,17 @@
 import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
-  fmt: { singleQuote: true, ignorePatterns: ['.github/dependabot.yml', 'package-lock.json'] },
+  fmt: {
+    singleQuote: true,
+    ignorePatterns: [
+      '.agents/**',
+      'skills-lock.json',
+      '.github/dependabot.yml',
+      'package-lock.json',
+    ],
+  },
   lint: {
+    ignorePatterns: ['.agents/**'],
     jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
     rules: { 'vite-plus/prefer-vite-plus-imports': 'error' },
     options: { typeAware: true, typeCheck: true },
