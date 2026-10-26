@@ -4,7 +4,14 @@
  * music. y is the world height for airborne entities (flyers, notes).
  */
 
-export type SpawnKind = 'spike' | 'wallLow' | 'wallTall' | 'bar' | 'flyerLow' | 'flyerHigh' | 'note';
+export type SpawnKind =
+  | 'spike'
+  | 'wallLow'
+  | 'wallTall'
+  | 'bar'
+  | 'flyerLow'
+  | 'flyerHigh'
+  | 'note';
 
 export type PatternEvent = {
   b: number;
@@ -21,7 +28,12 @@ export type Pattern = {
 
 const GROUND_NOTE_Y = 0.7;
 
-function noteLine(startBeat: number, count: number, y = GROUND_NOTE_Y, stepBeats = 0.5): PatternEvent[] {
+function noteLine(
+  startBeat: number,
+  count: number,
+  y = GROUND_NOTE_Y,
+  stepBeats = 0.5,
+): PatternEvent[] {
   const events: PatternEvent[] = [];
   for (let i = 0; i < count; i += 1) {
     events.push({ b: startBeat + i * stepBeats, t: 'note', y });
@@ -53,14 +65,33 @@ export const PATTERNS: Pattern[] = [
   { name: 'solo-bar', tier: 0, lengthBeats: 4, events: [{ b: 0.5, t: 'bar' }] },
 
   // ---- tier 1: pairs and low walls ----
-  { name: 'double-spike', tier: 1, lengthBeats: 6, events: [{ b: 0.5, t: 'spike' }, { b: 2.5, t: 'spike' }] },
-  { name: 'flyer-pair', tier: 1, lengthBeats: 6, events: [{ b: 0.5, t: 'flyerLow' }, { b: 1.5, t: 'flyerLow' }] },
+  {
+    name: 'double-spike',
+    tier: 1,
+    lengthBeats: 6,
+    events: [
+      { b: 0.5, t: 'spike' },
+      { b: 2.5, t: 'spike' },
+    ],
+  },
+  {
+    name: 'flyer-pair',
+    tier: 1,
+    lengthBeats: 6,
+    events: [
+      { b: 0.5, t: 'flyerLow' },
+      { b: 1.5, t: 'flyerLow' },
+    ],
+  },
   { name: 'low-wall', tier: 1, lengthBeats: 4, events: [{ b: 0.5, t: 'wallLow' }] },
   {
     name: 'spike-then-flyer',
     tier: 1,
     lengthBeats: 6,
-    events: [{ b: 0.5, t: 'spike' }, { b: 2.5, t: 'flyerLow' }],
+    events: [
+      { b: 0.5, t: 'spike' },
+      { b: 2.5, t: 'flyerLow' },
+    ],
   },
   {
     name: 'note-river',
@@ -72,7 +103,10 @@ export const PATTERNS: Pattern[] = [
     name: 'bar-then-spike',
     tier: 1,
     lengthBeats: 6,
-    events: [{ b: 0.5, t: 'bar' }, { b: 2.5, t: 'spike' }],
+    events: [
+      { b: 0.5, t: 'bar' },
+      { b: 2.5, t: 'spike' },
+    ],
   },
 
   // ---- tier 2: double jumps and tight timing ----
@@ -81,7 +115,10 @@ export const PATTERNS: Pattern[] = [
     name: 'long-jump',
     tier: 2,
     lengthBeats: 6,
-    events: [{ b: 0.5, t: 'spike' }, { b: 1.25, t: 'spike' }],
+    events: [
+      { b: 0.5, t: 'spike' },
+      { b: 1.25, t: 'spike' },
+    ],
   },
   {
     name: 'sky-arc',
@@ -93,25 +130,40 @@ export const PATTERNS: Pattern[] = [
     name: 'combo-lane',
     tier: 2,
     lengthBeats: 8,
-    events: [{ b: 0.5, t: 'spike' }, { b: 2.5, t: 'wallLow' }, { b: 4, t: 'flyerLow' }],
+    events: [
+      { b: 0.5, t: 'spike' },
+      { b: 2.5, t: 'wallLow' },
+      { b: 4, t: 'flyerLow' },
+    ],
   },
   {
     name: 'flyer-stairs',
     tier: 2,
     lengthBeats: 8,
-    events: [{ b: 0.5, t: 'flyerLow' }, { b: 1.5, t: 'flyerHigh' }, { b: 2.5, t: 'flyerLow' }],
+    events: [
+      { b: 0.5, t: 'flyerLow' },
+      { b: 1.5, t: 'flyerHigh' },
+      { b: 2.5, t: 'flyerLow' },
+    ],
   },
   {
     name: 'slide-weave',
     tier: 2,
     lengthBeats: 8,
-    events: [{ b: 0.5, t: 'spike' }, { b: 2.5, t: 'bar' }, { b: 4, t: 'spike' }],
+    events: [
+      { b: 0.5, t: 'spike' },
+      { b: 2.5, t: 'bar' },
+      { b: 4, t: 'spike' },
+    ],
   },
   {
     name: 'bar-sky',
     tier: 2,
     lengthBeats: 6,
-    events: [{ b: 1, t: 'bar' }, { b: 2.5, t: 'flyerHigh' }],
+    events: [
+      { b: 1, t: 'bar' },
+      { b: 2.5, t: 'flyerHigh' },
+    ],
   },
 
   // ---- tier 3: gauntlets ----
@@ -131,7 +183,11 @@ export const PATTERNS: Pattern[] = [
     name: 'hop-drill',
     tier: 3,
     lengthBeats: 8,
-    events: [{ b: 0.5, t: 'spike' }, { b: 1.75, t: 'spike' }, { b: 3, t: 'spike' }],
+    events: [
+      { b: 0.5, t: 'spike' },
+      { b: 1.75, t: 'spike' },
+      { b: 3, t: 'spike' },
+    ],
   },
   {
     name: 'weave',
@@ -149,7 +205,11 @@ export const PATTERNS: Pattern[] = [
     name: 'dino-rush',
     tier: 3,
     lengthBeats: 8,
-    events: [{ b: 0.5, t: 'bar' }, { b: 1.75, t: 'bar' }, { b: 3.25, t: 'spike' }],
+    events: [
+      { b: 0.5, t: 'bar' },
+      { b: 1.75, t: 'bar' },
+      { b: 3.25, t: 'spike' },
+    ],
   },
 ];
 

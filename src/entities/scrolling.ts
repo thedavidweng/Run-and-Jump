@@ -1,6 +1,13 @@
 import * as THREE from 'three/webgpu';
 import type { BeatClock } from '../game/BeatClock';
-import { buildBar, buildFlyer, buildNote, buildSpike, buildWall, type FlyerParts } from '../assets/factories';
+import {
+  buildBar,
+  buildFlyer,
+  buildNote,
+  buildSpike,
+  buildWall,
+  type FlyerParts,
+} from '../assets/factories';
 
 /**
  * Scrolling entities are positioned every frame from their arrival beat:
@@ -141,7 +148,13 @@ export class Note {
     this.group.visible = false;
   }
 
-  update(clock: BeatClock, speed: number, deltaSeconds: number, playerX: number, playerY: number): void {
+  update(
+    clock: BeatClock,
+    speed: number,
+    deltaSeconds: number,
+    playerX: number,
+    playerY: number,
+  ): void {
     if (!this.active) return;
     const x = clock.timeUntil(this.arrivalBeat) * speed;
     const y = this.baseY + Math.sin(clock.beat * Math.PI * 2) * 0.05;

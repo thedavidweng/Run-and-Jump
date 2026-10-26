@@ -33,7 +33,15 @@ export class Hud {
     this.muteButton.addEventListener('click', onMuteClick);
   }
 
-  update(score: number, combo: number, multiplier: number, fever: boolean, best: number, distance: number, bpm: number): void {
+  update(
+    score: number,
+    combo: number,
+    multiplier: number,
+    fever: boolean,
+    best: number,
+    distance: number,
+    bpm: number,
+  ): void {
     if (score !== this.lastScore) {
       this.scoreValue.textContent = String(score);
       this.lastScore = score;
@@ -107,7 +115,13 @@ export class Hud {
     this.hintLine.classList.add('faded');
   }
 
-  showDead(score: number, distance: number, maxCombo: number, best: number, newBest: boolean): void {
+  showDead(
+    score: number,
+    distance: number,
+    maxCombo: number,
+    best: number,
+    newBest: boolean,
+  ): void {
     this.deadScore.textContent = String(score);
     this.deadDist.textContent = `${Math.floor(distance)}m`;
     this.deadCombo.textContent = String(maxCombo);

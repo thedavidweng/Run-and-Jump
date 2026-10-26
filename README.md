@@ -14,15 +14,15 @@
 
 ## 技术栈(2026 前沿)
 
-| 层 | 选型 |
-| --- | --- |
-| 渲染 | three.js 0.185 **WebGPURenderer**(不支持 WebGPU 时自动回退 WebGL2) |
-| 着色 | **TSL**(Three Shading Language):天空渐变、日轮、RenderPipeline + Bloom + 暗角后处理 |
+| 层   | 选型                                                                                                                                                    |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 渲染 | three.js 0.185 **WebGPURenderer**(不支持 WebGPU 时自动回退 WebGL2)                                                                                      |
+| 着色 | **TSL**(Three Shading Language):天空渐变、日轮、RenderPipeline + Bloom + 暗角后处理                                                                     |
 | 语言 | **TypeScript 6.0**(严格模式;曾尝试 TS 7 原生编译器,其对 @types/three 的 TSL 递归类型存在病理性检查耗时 >20 分钟未收敛,故锁定 6.0.3——全项目检查约 13 秒) |
-| 构建 | **Vite 8** |
-| 音频 | Web Audio 全程序化生成:鼓组/贝斯/和弦/琶音 + 全套 SFX,零音频资源 |
-| 物理 | 自研街机碰撞(AABB/圆),按体感手调,不引入物理引擎 |
-| 验证 | Playwright 1.62(桌面 Chromium WebGPU + 移动 WebKit) |
+| 构建 | **Vite 8**                                                                                                                                              |
+| 音频 | Web Audio 全程序化生成:鼓组/贝斯/和弦/琶音 + 全套 SFX,零音频资源                                                                                        |
+| 物理 | 自研街机碰撞(AABB/圆),按体感手调,不引入物理引擎                                                                                                         |
+| 验证 | Playwright 1.62(桌面 Chromium WebGPU + 移动 WebKit)                                                                                                     |
 
 ## 脚本
 

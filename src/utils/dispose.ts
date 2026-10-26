@@ -7,7 +7,11 @@ export function disposeObject3D(root: THREE.Object3D): void {
       mesh.geometry.dispose();
     }
 
-    const materials = Array.isArray(mesh.material) ? mesh.material : mesh.material ? [mesh.material] : [];
+    const materials = Array.isArray(mesh.material)
+      ? mesh.material
+      : mesh.material
+        ? [mesh.material]
+        : [];
     for (const material of materials) {
       disposeMaterial(material);
     }
@@ -25,5 +29,7 @@ function disposeMaterial(material: THREE.Material): void {
 }
 
 function isThreeTexture(value: unknown): value is THREE.Texture {
-  return Boolean(value && typeof value === 'object' && (value as { isTexture?: boolean }).isTexture);
+  return Boolean(
+    value && typeof value === 'object' && (value as { isTexture?: boolean }).isTexture,
+  );
 }

@@ -69,9 +69,13 @@ test('endless runner core loop: start, jump, slide, die, restart', async ({ page
 
   await page.goto('/');
   await expect(page.locator('#game-canvas')).toBeVisible();
-  await page.waitForFunction(() => (window.__THREE_GAME_DIAGNOSTICS__?.frame ?? 0) > 10, undefined, {
-    timeout: 15_000,
-  });
+  await page.waitForFunction(
+    () => (window.__THREE_GAME_DIAGNOSTICS__?.frame ?? 0) > 10,
+    undefined,
+    {
+      timeout: 15_000,
+    },
+  );
 
   // Title screen renders a live (nonblank) world.
   expect((await diag(page))?.phase).toBe('ready');
@@ -90,7 +94,9 @@ test('endless runner core loop: start, jump, slide, die, restart', async ({ page
   // A tap is guaranteed a ~1.2-high hop by the min-rise grace window.
   await page.waitForTimeout(250);
   await press(page, mobile);
-  await expect.poll(async () => (await diag(page))?.player.y ?? 0, { timeout: 4_000 }).toBeGreaterThan(0.5);
+  await expect
+    .poll(async () => (await diag(page))?.player.y ?? 0, { timeout: 4_000 })
+    .toBeGreaterThan(0.5);
 
   // Slide: ↓ on desktop, a touch held on the bottom strip on mobile.
   await expect.poll(async () => (await diag(page))?.player.grounded).toBe(true);
@@ -113,9 +119,11 @@ test('endless runner core loop: start, jump, slide, die, restart', async ({ page
   expect((await diag(page))?.player.y).toBe(0);
   if (mobile) {
     await page.evaluate(() => {
-      document.querySelector('#game-canvas')!.dispatchEvent(
-        new PointerEvent('pointerup', { bubbles: true, pointerId: 77, pointerType: 'touch' }),
-      );
+      document
+        .querySelector('#game-canvas')!
+        .dispatchEvent(
+          new PointerEvent('pointerup', { bubbles: true, pointerId: 77, pointerType: 'touch' }),
+        );
     });
   } else {
     await page.keyboard.up('ArrowDown');
@@ -123,7 +131,9 @@ test('endless runner core loop: start, jump, slide, die, restart', async ({ page
   await expect.poll(async () => (await diag(page))?.player.sliding, { timeout: 4_000 }).toBe(false);
 
   // Distance and score progress while running.
-  await expect.poll(async () => (await diag(page))?.distance ?? 0, { timeout: 8_000 }).toBeGreaterThan(6);
+  await expect
+    .poll(async () => (await diag(page))?.distance ?? 0, { timeout: 8_000 })
+    .toBeGreaterThan(6);
   const running = await diag(page);
   expect(running?.score ?? 0).toBeGreaterThan(0);
 
@@ -149,7 +159,9 @@ test('endless runner core loop: start, jump, slide, die, restart', async ({ page
   expect(restarted?.combo ?? 99).toBe(0);
 
   const ignorableErrors = [/WebGPU/i, /GPU stall/i, /powerPreference/i];
-  const blockingConsole = consoleErrors.filter((text) => !ignorableErrors.some((re) => re.test(text)));
+  const blockingConsole = consoleErrors.filter(
+    (text) => !ignorableErrors.some((re) => re.test(text)),
+  );
   expect(blockingConsole).toEqual([]);
   expect(pageErrors).toEqual([]);
 });

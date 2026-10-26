@@ -39,7 +39,11 @@ export class Environment {
   private scroll = 0;
 
   constructor(scene: THREE.Scene) {
-    scene.backgroundNode = mix(color(PALETTE.bgBottom), color(PALETTE.bgTop), screenUV.y.clamp(0, 1));
+    scene.backgroundNode = mix(
+      color(PALETTE.bgBottom),
+      color(PALETTE.bgTop),
+      screenUV.y.clamp(0, 1),
+    );
     scene.fog = new THREE.Fog(PALETTE.fog, 20, 58);
 
     this.root.add(buildTrack());
@@ -67,7 +71,12 @@ export class Environment {
       this.root.add(pylon);
     }
 
-    this.layers.push(this.buildMountainLayer(), this.buildTowerLayer(), this.buildHillLayer(), this.buildCloudLayer());
+    this.layers.push(
+      this.buildMountainLayer(),
+      this.buildTowerLayer(),
+      this.buildHillLayer(),
+      this.buildCloudLayer(),
+    );
     for (const layer of this.layers) this.root.add(layer.group);
   }
 
@@ -120,7 +129,7 @@ export class Environment {
     for (let copy = 0; copy < 2; copy += 1) {
       for (let i = 0; i < 6; i += 1) {
         const cloud = buildCloud(1.4 + (i % 3) * 0.8);
-        cloud.position.set(copy * span + i * (span / 6) + (i * 11) % 8, 8.5 + (i % 4) * 2.2, -27);
+        cloud.position.set(copy * span + i * (span / 6) + ((i * 11) % 8), 8.5 + (i % 4) * 2.2, -27);
         group.add(cloud);
       }
     }

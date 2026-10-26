@@ -34,7 +34,8 @@ const STRINGS: Record<Locale, Dict> = {
     promptStart: '空格 / 点击 / 触屏 —— 开始',
     promptRetry: '空格 / 点击 —— 再来一局',
     promptResume: '按 P 或点击继续',
-    howtoKeys: '<b>按一下</b> 跳跃 · <b>按住</b> 跳更高 · <b>空中再按</b> 二段跳 · <b>↓/S</b> 滑铲与急坠',
+    howtoKeys:
+      '<b>按一下</b> 跳跃 · <b>按住</b> 跳更高 · <b>空中再按</b> 二段跳 · <b>↓/S</b> 滑铲与急坠',
     howtoTouch: '触屏:<b>点击</b> 跳跃 · <b>按住屏幕下缘</b> 滑铲',
     howtoGoal:
       '跳过 <span class="c-pink">尖刺</span> 与 <span class="c-purple">高墙</span>，滑过 <span class="c-red">激光门</span>，空中撞碎 <span class="c-orange">节拍妖精</span>，收集 <span class="c-cyan">音符</span>',
@@ -58,7 +59,8 @@ const STRINGS: Record<Locale, Dict> = {
     promptStart: 'Space / Click / Tap — Start',
     promptRetry: 'Space / Click — Run it back',
     promptResume: 'Press P or click to resume',
-    howtoKeys: '<b>Tap</b> to jump · <b>hold</b> for height · <b>tap in air</b> to double-jump · <b>↓/S</b> to slide & fast-fall',
+    howtoKeys:
+      '<b>Tap</b> to jump · <b>hold</b> for height · <b>tap in air</b> to double-jump · <b>↓/S</b> to slide & fast-fall',
     howtoTouch: 'Touch: <b>tap</b> to jump · <b>hold the bottom edge</b> to slide',
     howtoGoal:
       'Jump <span class="c-pink">spikes</span> and <span class="c-purple">walls</span>, slide under <span class="c-red">laser gates</span>, smash <span class="c-orange">beat imps</span> mid-air, collect <span class="c-cyan">notes</span>',
@@ -84,7 +86,9 @@ function detectLocale(): Locale {
   } catch {
     /* fall through to browser detection */
   }
-  const languages = navigator.languages?.length ? navigator.languages : [navigator.language || 'en'];
+  const languages = navigator.languages?.length
+    ? navigator.languages
+    : [navigator.language || 'en'];
   for (const tag of languages) {
     if (tag.toLowerCase().startsWith('zh')) return 'zh';
     if (tag.toLowerCase().startsWith('en')) return 'en';

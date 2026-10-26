@@ -289,7 +289,14 @@ export class AudioSystem {
 
   sfxLand(strength: number): void {
     if (!this.ctx || !this.sfxBus || this.ctx.state !== 'running') return;
-    this.noiseHit(this.sfxBus, this.ctx.currentTime, 0.09, 'lowpass', 300, Math.min(0.09, 0.03 + strength * 0.01));
+    this.noiseHit(
+      this.sfxBus,
+      this.ctx.currentTime,
+      0.09,
+      'lowpass',
+      300,
+      Math.min(0.09, 0.03 + strength * 0.01),
+    );
   }
 
   sfxSmash(): void {

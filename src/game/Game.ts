@@ -6,7 +6,13 @@ import { diagnostics, publishDiagnostics, unpublishDiagnostics } from '../core/d
 import { disposeObject3D } from '../utils/dispose';
 import { BeatClock } from './BeatClock';
 import { GameState } from './GameState';
-import { BASE_BPM, bpmForDistance, speedForDistance, tierForDistance, BASE_SPEED } from './difficulty';
+import {
+  BASE_BPM,
+  bpmForDistance,
+  speedForDistance,
+  tierForDistance,
+  BASE_SPEED,
+} from './difficulty';
 import { Player, DEFAULT_PLAYER_TUNING } from '../entities/Player';
 import { Environment } from '../systems/Environment';
 import { Spawner } from '../systems/Spawner';
@@ -219,7 +225,14 @@ export class Game {
         const slowDelta = delta * DEATH_SLOWMO;
         this.clock.advance(slowDelta);
         this.environment.update(slowDelta, this.clock, this.speed);
-        this.spawner.update(this.clock, this.speed, tierForDistance(state.distance), slowDelta, 0, this.player.y);
+        this.spawner.update(
+          this.clock,
+          this.speed,
+          tierForDistance(state.distance),
+          slowDelta,
+          0,
+          this.player.y,
+        );
         this.player.deathUpdate(delta);
         this.vfx.update(delta, this.speed * DEATH_SLOWMO);
         if (state.phaseTime >= DEATH_SECONDS) {
@@ -239,7 +252,11 @@ export class Game {
       }
     }
 
-    this.cameraRig.update(delta, this.player.y, this.state.phase === 'playing' ? this.speed : BASE_SPEED);
+    this.cameraRig.update(
+      delta,
+      this.player.y,
+      this.state.phase === 'playing' ? this.speed : BASE_SPEED,
+    );
     this.hud.update(
       state.score,
       state.combo,
@@ -262,10 +279,22 @@ export class Game {
 
     const tier = tierForDistance(state.distance);
     this.environment.update(delta, this.clock, this.speed);
-    this.spawner.update(this.clock, this.speed, tier, delta, this.player.group.position.x, this.player.y);
+    this.spawner.update(
+      this.clock,
+      this.speed,
+      tier,
+      delta,
+      this.player.group.position.x,
+      this.player.y,
+    );
     this.player.update(delta, this.input.pressed, this.input.held, this.input.downHeld, this.speed);
 
-    const hits = this.collision.check(this.player, this.spawner.obstacles, this.spawner.flyers, this.spawner.notes);
+    const hits = this.collision.check(
+      this.player,
+      this.spawner.obstacles,
+      this.spawner.flyers,
+      this.spawner.notes,
+    );
 
     for (const flyer of hits.smashed) {
       flyer.smashed = true;
@@ -353,7 +382,10 @@ export class Game {
     diagnostics.nearest.obstacleKind = null;
     for (const obstacle of this.spawner.obstacles) {
       const x = obstacle.group.position.x;
-      if (x > -0.5 && (diagnostics.nearest.obstacleX === null || x < diagnostics.nearest.obstacleX)) {
+      if (
+        x > -0.5 &&
+        (diagnostics.nearest.obstacleX === null || x < diagnostics.nearest.obstacleX)
+      ) {
         diagnostics.nearest.obstacleX = x;
         diagnostics.nearest.obstacleKind = obstacle.kind;
       }

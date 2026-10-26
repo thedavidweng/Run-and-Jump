@@ -8,7 +8,7 @@
   --bg: #150726;
   color: var(--ink);
   background: var(--bg);
-  font-family: "Avenir Next", Avenir, "PingFang SC", "Segoe UI", system-ui, sans-serif;
+  font-family: 'Avenir Next', Avenir, 'PingFang SC', 'Segoe UI', system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: geometricPrecision;
   -webkit-user-select: none;
@@ -97,7 +97,9 @@ body {
   color: #150726;
   background: linear-gradient(90deg, var(--cyan), var(--purple));
   box-shadow: 0 0 12px rgba(0, 229, 255, 0.35);
-  transition: transform 0.15s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.3s ease;
 }
 
 #mult-chip.fever {
@@ -107,8 +109,12 @@ body {
 }
 
 @keyframes fever-pulse {
-  from { transform: scale(1); }
-  to { transform: scale(1.12); }
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
 }
 
 #hud-combo {
@@ -203,7 +209,8 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 26px rgba(0, 229, 255, 0.45)) drop-shadow(0 6px 40px rgba(255, 46, 151, 0.35));
+  filter: drop-shadow(0 0 26px rgba(0, 229, 255, 0.45))
+    drop-shadow(0 6px 40px rgba(255, 46, 151, 0.35));
 }
 
 .overlay h2 {
@@ -236,8 +243,13 @@ body {
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
 }
 
 .howto {
@@ -253,11 +265,26 @@ body {
   backdrop-filter: blur(8px);
 }
 
-.c-pink { color: var(--pink); font-weight: 700; }
-.c-cyan { color: var(--cyan); font-weight: 700; }
-.c-purple { color: var(--purple); font-weight: 700; }
-.c-orange { color: var(--orange); font-weight: 700; }
-.c-red { color: #ff3b52; font-weight: 700; }
+.c-pink {
+  color: var(--pink);
+  font-weight: 700;
+}
+.c-cyan {
+  color: var(--cyan);
+  font-weight: 700;
+}
+.c-purple {
+  color: var(--purple);
+  font-weight: 700;
+}
+.c-orange {
+  color: var(--orange);
+  font-weight: 700;
+}
+.c-red {
+  color: #ff3b52;
+  font-weight: 700;
+}
 
 .lang-row {
   display: flex;
