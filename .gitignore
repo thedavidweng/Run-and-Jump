@@ -4,3 +4,6 @@ test-results/
 artifacts/
 *.log
 .DS_Store
+
+# Claude Code reads skills from .claude/skills; this is a local symlink to the shared .agents/skills
+.claude/
