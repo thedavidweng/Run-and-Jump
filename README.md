@@ -27,11 +27,11 @@
 ## 脚本
 
 ```bash
-npm install
-npm run dev            # http://127.0.0.1:5188
-npm run build          # tsc + vite build
-npm run test           # Playwright:开局→跳跃→滑铲→死亡→重开 + i18n 检测/切换/持久化
-npm run inspect:canvas # 截图 + 画布像素/诊断检查(需 dev server 在跑)
+bun install
+bun run dev            # http://127.0.0.1:5188
+bun run build          # tsc + vite build
+bun run test           # Playwright:开局→跳跃→滑铲→死亡→重开 + i18n 检测/切换/持久化
+bun run inspect:canvas # 截图 + 画布像素/诊断检查(需 dev server 在跑)
 node scripts/playtest.mjs --seconds 40   # 自动游玩机器人(读诊断精准跳跃/滑铲)
 ```
 
@@ -69,4 +69,4 @@ A beat-driven endless runner for the browser (Muse Dash vibes × chrome://dino).
 
 **Stack**: three.js 0.185 WebGPURenderer (auto WebGL2 fallback) · TSL post-processing (bloom + vignette) · Vite 8 · TypeScript 6 strict · fully procedural Web Audio (zero assets) · Playwright-verified on desktop Chromium (WebGPU) and mobile WebKit.
 
-`npm install && npm run dev` → http://127.0.0.1:5188 · UI language auto-detects (中文/English) and can be switched from the main menu.
+`bun install && bun run dev` → http://127.0.0.1:5188 · UI language auto-detects (中文/English) and can be switched from the main menu.
