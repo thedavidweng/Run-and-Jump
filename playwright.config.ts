@@ -20,7 +20,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   webServer: {
-    command: 'npm run dev',
+    command: 'bun run dev',
     url: 'http://127.0.0.1:5188',
     reuseExistingServer: true,
     timeout: 30_000,
